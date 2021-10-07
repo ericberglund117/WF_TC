@@ -20,3 +20,16 @@ test('User input data into a field', async t => {
         .expect(inputField.value).eql('Brad Meltzer')
         .expect(inputResults.with({visibilityCheck: true}).exists).ok()
 });
+
+test('User input data into a field and redirection', async t => {
+    const inputField = Selector('div').withAttribute('id', 'home-search-box').child(1)
+    const inputResults = Selector('div').withAttribute('id', 'home-search-box-results')
+    const bookSelect = Selector('div').withAttribute('id', 'home-search-box-results').child().child().child()
+    const bookSelectLocation = ClientFunction(() => document.location.href)
+    await t
+        .typeText(inputField, 'Brad Meltzer')
+        .expect(inputField.value).eql('Brad Meltzer')
+        .expect(inputResults.with({visibilityCheck: true}).exists).ok()
+        .click(bookSelect)
+        .expect(bookSelectLocation()).contains('https://www.whatshouldireadnext.com/isbn/044661212X')
+});
