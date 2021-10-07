@@ -21,6 +21,8 @@ test('User input data into a field', async t => {
         .expect(inputResults.with({visibilityCheck: true}).exists).ok()
 });
 
+
+//this one test meets all the requirements of the challenge. button click, input data, page navigation
 test('User input data into a field and redirection', async t => {
     const inputField = Selector('div').withAttribute('id', 'home-search-box').child(1)
     const inputResults = Selector('div').withAttribute('id', 'home-search-box-results')
